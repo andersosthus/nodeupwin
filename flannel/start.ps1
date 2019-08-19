@@ -3,7 +3,7 @@
     [ValidateSet("l2bridge", "overlay",IgnoreCase = $true)] [parameter(Mandatory = $false)] $NetworkMode="overlay",
     [parameter(Mandatory = $false)] $ClusterCIDR="10.200.0.0/16",
     [parameter(Mandatory = $false)] $KubeDnsServiceIP="10.96.0.10",
-    [parameter(Mandatory = $false)] $ServiceCIDR="10.96.0.0/12",
+    [parameter(Mandatory = $false)] $ServiceCIDR="10.96.0.0/16",
     [parameter(Mandatory = $false)] $InterfaceName="Ethernet",
     [parameter(Mandatory = $false)] $LogDir = "C:\k",
     [parameter(Mandatory = $false)] $KubeletFeatureGates = ""
@@ -28,14 +28,14 @@ if ($NetworkMode -eq "overlay")
 $helper = "c:\k\helper.psm1"
 if (!(Test-Path $helper))
 {
-    Start-BitsTransfer "https://raw.githubusercontent.com/$GithubSDNRepository/master/Kubernetes/windows/helper.psm1" -Destination c:\k\helper.psm1
+    Start-BitsTransfer "https://raw.githubusercontent.com/$GithubSDNRepository/master/kubernetes/helper.psm1" -Destination c:\k\helper.psm1
 }
 ipmo $helper
 
 $install = "c:\k\install.ps1"
 if (!(Test-Path $install))
 {
-    Start-BitsTransfer "https://raw.githubusercontent.com/$GithubSDNRepository/master/Kubernetes/windows/install.ps1" -Destination c:\k\install.ps1
+    Start-BitsTransfer "https://raw.githubusercontent.com/$GithubSDNRepository/master/kubernetes/install.ps1" -Destination c:\k\install.ps1
 }
 
 # Download files, move them, & prepare network
